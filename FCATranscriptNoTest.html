@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>FCA High School Transcript</title>
+	<link href="https://fonts.googleapis.com/css?family=Archivo+Narrow" rel="stylesheet">
+	<style type="text/css">
+		* {
+			font-family: 'Archivo Narrow', sans-serif !important;
+			box-sizing: border-box;
+		}
+		p {
+			margin: 0;
+		}
+		th {
+			text-align: left;
+			font-size: 10pt !important;
+		}
+		.container {
+			width: 670px;
+			height: 890px;
+			margin: 0 auto;
+			background-image: url('https://s2.postimg.org/45sqn9wx5/fca_lion_black_redface_opacity25.png');
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: 0 120px;
+		}
+		.header {
+			display: flex;
+			flex-wrap: wrap;
+		}
+		.title {
+			text-align: center;
+			width: 100%;
+			font-size: 24pt;
+		}
+		.header-div {
+			height: 100%;
+			margin-top: 5px;
+			font-size: 10pt !important;
+		}
+		.header-left {
+			text-align: left;
+			width: 55%;
+		}
+		.header-mid {
+			text-align: left;
+			width: 22%;
+		}
+		.header-right {
+			text-align: right;
+			width: 23%;
+		}
+		.core {
+			width: 100%;
+			min-height: 450px;
+			display: flex;
+			flex-wrap: wrap;
+		}
+		.core-column {
+			width: 33.33%;
+			font-size: 8pt !important;
+			padding: 0px 4px;
+			line-height: .9em;
+		}
+		.school-year {
+			font-size: 9pt;
+			line-height: 1em;
+		}
+		.separator {
+			border-right: solid;
+			border-width: 1px;
+		}
+		.course {
+			width: 70%;
+		}
+		.table-mid {
+			text-align: center;
+		}
+		.right {
+			text-align: right;
+		}
+		.number {
+			width: 40px;
+		}
+		.letter {
+			width: 20px;
+			font-weight: bold;
+		}
+		.row {
+			width: 100%
+		}
+		.year {
+			width: 30%;
+		}
+		.distinction {
+			width: 70%;
+		}
+		.secondary {
+			width: 668px;
+			margin-top: 6px;
+			font-size: 8pt !important;
+		}
+		.sec-table {
+			width: 100%;
+			border: solid 1px;
+		}
+		.footer {
+			height: 85px;
+			width: 100%;
+			display: flex;
+			flex-wrap: wrap;
+			padding-top: 5px;
+		}
+		.footer-column-left {
+			width: 40%;
+			font-size: 14pt;
+			text-align: center;
+		}
+		.footer-column-center {
+			width: 20%;
+		}
+		.img-div {
+			margin: 0 auto;
+			height: 100%;
+			width: 80px;
+		}
+		.img-fit {
+			height: 100%;
+		}
+		.footer-column-right {
+			width: 40%;
+			font-size: 9pt;
+		}
+		.signature {
+			height: 30px;
+			width: 100%;
+			border-bottom: solid 1px;
+		}
+		.sig-explain {
+			width: 100%;
+			text-align: center;
+		}
+		.note {
+			text-align: left;
+			font-size: 8pt;
+		}
+		.line {
+			border-color: black;
+			border-width: .2px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<header class="header">
+			<div class="title">
+				High School Transcript
+			</div>
+			<div class="header-div header-left">
+				<p>
+					<strong>{Stu_FullName}</strong>
+					<br>
+					{stu_Address}{if condition="{stu_Address2} is not ''"}, {stu_Address2}{end if}
+					<br>
+					{stu_City}, {stu_state} {stu_zip}
+					<br>
+					{Stu_homephone}
+					<br>
+					<em>Guardians</em>: {p1_greeting4}
+					<br>
+					{Stu_Gender}, born {Stu_Birthdate}
+				</p>
+			</div>
+			<div class="header-div header-mid">
+				<p>
+					<br>
+					Class of {Stu_ClassOf}
+					<br>
+					<em>Cumulative GPA</em>: {trans_totalgpa4}
+					<br>
+					<em>Credits</em>: {trans_totalearnedcredits2}/{trans_totalattemptedcredits2}
+					<br>
+					<em>Graduation Date</em>: {Stu_GraduationDate}
+					<br>
+					<em>Class Rank</em>: {trans_rank} of {trans_rankcount}
+				</p>
+			</div>
+			<div class="header-div header-right">
+				<p>
+					<strong>{SchoolName}</strong>
+					<br>
+					{SchoolAddress}
+					<br>
+					{SchoolCity}, {SchoolState} {SchoolZip}
+					<br>
+					{SchoolPhone}
+					<br>
+					<em>CEEB</em>: {CollegeBoard}
+					<br>
+					<em>Print Date</em>: {Today}
+				</p>
+			</div>
+		</header> <!--header-->
+		<hr class="line">
+		<div class="core">
+			<div class="core-column separator">
+				<table>
+					<thead>
+						<th class="course">
+							Course
+						</th>
+						<th class="table-mid" colspan="2">
+							Grade
+						</th>
+						<th class="credit">
+							Credit
+						</th>
+					</thead>
+					{hsonly}
+                    {GroupBySchoolYear}
+                    {Start Transcript Group Loop}
+                    {if condition="{trans_group_Line} lt {trans_group_Count}/2+1"}
+                    {start transcript loop}
+                    {if condition="{trans_line} is 1"}
+					<tr>
+						<td class="table-mid school-year" colspan="100%">
+							Grade {trans_gradelevel} Courses
+						</td>
+					</tr>
+					<tr>
+						<td class="table-mid school-year" colspan="100%">
+							{trans_schoolyear} <strong>{trans_SchoolName}</strong>
+						</td>
+					</tr>
+					{end if}
+					<tr>
+						<td class="course">
+							{trans_course}
+						</td>
+						<td class="table-mid number">
+							{trans_finalgradeavg_2}
+						</td>
+						<td class="table-mid letter">
+							{trans_finalgrade}
+						</td>
+						<td class="right">
+							{if condition="{trans_passing} is 1"}{trans_credits}{else if condition="{trans_passing} is 0"}0{end if}
+						</td>
+					</tr>
+					{end loop}
+					<tr>
+						<td class="course">
+							<strong>Total Credits:</strong>
+						</td>
+						<td class="table-mid" colspan="3">
+							{trans_groupearnedcredits2}/{trans_groupattemptedcredits2}
+						</td>
+					</tr>
+					{end if}{end loop}
+				</table>
+			</div>
+
+			<div class="core-column separator">
+				<table>
+					<thead>
+						<th class="course">
+							Course
+						</th>
+						<th class="table-mid" colspan="2">
+							Grade
+						</th>
+						<th class="credit">
+							Credit
+						</th>
+					</thead>
+					{Start Transcript Group Loop}
+                    {if condition="{trans_group_Line} gte {trans_group_Count}/2+1"}
+					{start transcript loop}
+                    {if condition="{trans_line} is 1"}
+					<tr>
+						<td class="table-mid school-year" colspan="100%">
+							Grade {trans_gradelevel} Courses
+						</td>
+					</tr>
+					<tr>
+						<td class="table-mid school-year" colspan="100%">
+							{trans_schoolyear} <strong>{trans_SchoolName}</strong>
+						</td>
+					</tr>
+					{end if}
+					<tr>
+						<td class="course">
+							{trans_course}
+						</td>
+						<td class="table-mid number">
+							{trans_finalgradeavg_2}
+						</td>
+						<td class="table-mid letter">
+							{trans_finalgrade}
+						</td>
+						<td class="right">
+							{if condition="{trans_passing} is 1"}{trans_credits}{else if condition="{trans_passing} is 0"}0{end if}
+						</td>
+					</tr>
+					{end loop}
+					<tr>
+						<td class="course">
+							<strong>Total Credits:</strong>
+						</td>
+						<td class="table-mid" colspan="3">
+							{trans_groupearnedcredits2}/{trans_groupattemptedcredits2}
+						</td>
+					</tr>
+					{end if}{end loop}
+				</table>
+			</div>
+			<div class="core-column">
+				<h2 class="table-mid">
+					Leadership Roles and Honors
+				</h2>
+				<table class="row">
+					<thead>
+						<th class="year">
+							Year
+						</th>
+						<th class="distinction table-mid">
+							Distinction
+						</th>
+					</thead>
+					{Start Recognition Category Loop}{Start Recognition Year Loop}{Start Recognition Data Loop}<tr class="row">
+						 <td class="year">
+							{rec_school_year}
+						</td>
+						<td class="distinction">
+							{rec_recognition}
+						</td>
+					</tr>
+					{end loop}{end loop}{end loop}
+				</table>
+			</div>
+		</div> <!--core-->
+		<div class="secondary">
+			<table class="sec-table">
+				<thead>
+					<th class="table-mid" colspan="100%">Credits by Department</th>
+				</thead>
+				<tr>
+				{Start Transcript Department Loop}
+					<td class="table-mid">{trans_summarydepartmentname}<br>{trans_summarydepartmentcredits}</td>{end loop}
+					<td class="right">Total<br>{trans_totaldepartmentcredits}</td>
+				</tr>
+			</table>
+		</div> <!--secondary-->
+		<footer class="footer">
+			<div class="footer-column-left">
+				<p>
+					<br><strong>Providing Academic, Athletic, and Spiritual Excellence Since 1973</strong>
+				</p>
+			</div>
+			<div class="footer-column-center">
+				<div class="img-div">
+					<img class="img-fit" src="https://s10.postimg.org/l1frk2wex/FCA_Logo_no_background.png">
+				</div>
+			</div>
+			<div class="footer-column-right">
+				<div class="signature">
+				</div>
+				<p class="sig-explain">
+					Signature of School Official
+				</p>
+				<p class="note">
+				{transcriptnote}
+				</p>
+			</div>
+		</footer>
+	</div> <!--container-->{pagebreak}
+</body>
+</html>
